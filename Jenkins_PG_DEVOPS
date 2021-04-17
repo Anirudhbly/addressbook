@@ -1,0 +1,38 @@
+pipeline {
+        agent {
+            label 'master'
+        }
+        tools {
+            maven 'My_Maven'
+            jdk 'My_JAVA'
+        }
+    stages {
+        
+        stage ('Checkout the code') {
+            steps{
+                git branch: 'master', url: 'https://github.com/devopstrainers1/addressbook.git'
+            }
+        }
+        stage ('Code Compile') {
+            steps{
+                sh """
+                mvn compile
+                """
+            }
+        }
+        stage ('JUNIT test') {
+            steps{
+                sh """
+                mvn test
+                """
+            }
+        }
+        stage ('Packaging') {
+            steps {
+                sh """
+                mvn package
+                """
+            }
+        }
+      }   
+}
