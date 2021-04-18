@@ -10,7 +10,7 @@ pipeline {
 
         stage ('Checkout the code') {
             steps{
-                git branch: 'master', url: 'https://github.com/Anirudhbly/addressbook.git'
+                git branch: '7.7', url: 'https://github.com/Anirudhbly/addressbook.git'
             }
         }
 
