@@ -29,6 +29,14 @@ pipeline {
                 """
             }
         }
+                
+        stage ('Echo') {
+            steps {
+                sh """
+                Echo "ECHO"
+                """
+            }
+        }
         stage ('Packaging') {
             steps {
                 sh """
