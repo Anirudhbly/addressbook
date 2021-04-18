@@ -7,52 +7,60 @@ pipeline {
             jdk 'My_JAVA'
         }
     stages {
-        
+
         stage ('Checkout the code') {
             steps{
-                git branch: 'main', url: 'https://github.com/Anirudhbly/spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/devopstrainers1/addressbook.git'
             }
         }
-       stage ('Parallel block') {
-       parallel {           
-        stage ('Code validate') {
+
+      stage ('Parallel block') {
+       parallel {   
+        stage ('Code Validate') {
             steps{
-                catchError (buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 sh """
                 mvn validate
                 """
-            }
-            }
+            
         }
+        }
+
         stage ('Code Compile') {
             steps{
-                catchError (buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+               
                 sh """
                 mvn compile
                 """
+            
         }
         }
        }
       }
-        stage ('JUNIT test') {
+
+        stage ('JUNIT Test') {
             steps{
                 sh """
                 mvn test
                 """
             }
         }
+
         stage ('Packaging') {
             steps {
                 sh """
                 mvn package
                 """
+
             }
         }
-      }  
-    post {
-        always {
-            junit 'target/surefire-reports/**/*.xml' /* pulling the test results */
-        } 
-    }     
-}
+
+
+      }
+      post {
+
+          always{
+              junit 'target/surefire-reports/**/*.xml'
+          }
+      }   
+
 }
